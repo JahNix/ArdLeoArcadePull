@@ -30,5 +30,6 @@ BUGS
 - Well, it sort of works and doesn't.
 Some buttons work (say pins 5-11 and A0) but not all.
 Back off the amount of ACTIVE pins and it does what it is supposed to do.
+Pretty sure its got to do with timing...delay() and millis()
 
 - Validate I have the correct decimal value for the keypresses.
