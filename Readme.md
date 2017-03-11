@@ -8,6 +8,7 @@ It gives me all I need for fighting games and regular games.
 
 A simple arduino Leo keyboard sequence to use with MAME.
 It uses my Keyboard preference but you could always change and make your own.
+it also controls my coinmech light, im now working on making it throb or flash with a coin in...
 
 
 
@@ -26,8 +27,8 @@ P1_B5
 P1_B6
 P1_B7
 P1_B8
-
-working on adding buttons 9 & 10.
+P1_B9
+P1_B10
 
 BUGS
-- Validate I have the correct decimal value for the keypresses.
+- LIGHT THROB IS FAR TOO QUICK!
