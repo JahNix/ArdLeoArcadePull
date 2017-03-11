@@ -3,8 +3,11 @@ Okay, First like to say I know that this has been done before by many others. Bu
 Best way for me to learn is to pick it apart and rebuild it.
 I like to think of Look, Cover, Write, Check...
 
+My personal button layout for 10 buttons I came up with years ago.
+It gives me all I need for fighting games and regular games.
+
 A simple arduino Leo keyboard sequence to use with MAME.
-It uses my Keyboard preference but you could always change and make your own
+It uses my Keyboard preference but you could always change and make your own.
 
 
 
