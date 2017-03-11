@@ -13,31 +13,33 @@
 #define keyP1_B6 115        // Keypress S    
 #define keyP1_B7 100        // Keypress D
 #define keyP1_B8 102        // Keypress F
+#define keyP1_B9 2          // TBD
+#define keyP1_B10 2         // TBD
 #define keyCOIN_IN  53      // Press Key 5
 #define keyP1_START 1       // Keypress 1
 //#define keyP1_SELECT         // NFI 
 
 // Define Trigger Pin Names
 const int COIN_IN = A0;      // A0
-// const int COIN_LIGHT = A1;   // A1
-// const int xxxxxxx = A2;   // A2
-// const int xxxxxxx = A3;   // A3
+const int COIN_LIGHT = A1;   // A1
+const int P1_START = A2;     // A2
+const int P1_SELECT = A3;    // A3
 // const int xxxxxxx = A4;   // A4
 // const int xxxxxxx = A5;   // A5
-const int P1_UP = A1;         // D0      
-const int P1_DOWN = A2;       // D1      
-const int P1_LEFT = A3;       // D2
-const int P1_RIGHT = A4;      // D3
+const int P1_UP = 10;        // D0      
+const int P1_DOWN = 11;      // D1      
+const int P1_LEFT = 12;      // D2
+const int P1_RIGHT = 13;     // D3
 const int P1_B1 = 0;         // D4
 const int P1_B2 = 1;         // D5
 const int P1_B3 = 2;         // D6
 const int P1_B4 = 3;         // D7
 const int P1_B5 = 4;         // D8
 const int P1_B6 = 5;         // D9
-const int P1_B7 = 6;        // D10
-const int P1_B8 = 7;        // D11
-const int P1_START = 8;     // D12
-const int P1_SELECT = 9;    // D13
+const int P1_B7 = 6;         // D10
+const int P1_B8 = 7;         // D11
+const int P1_B9 = 8;         // D10
+const int P1_B10 = 9;        // D11
 
 // LastButtonStateVariables
 int COIN_IN_buttonState;                // the current reading from the COIN_IN pin
@@ -66,6 +68,10 @@ int P1_B7_buttonState;                  // the current reading from the P1_B7 pi
 int P1_B7_lastButtonState = HIGH;       // the previous reading from the P1_B7 pin
 int P1_B8_buttonState;                  // the current reading from the P1_B8 pin
 int P1_B8_lastButtonState = HIGH;       // the previous reading from the P1_B8 pin
+int P1_B9_buttonState;                  // the current reading from the P1_B8 pin
+int P1_B9_lastButtonState = HIGH;       // the previous reading from the P1_B8 pin
+int P1_B10_buttonState;                  // the current reading from the P1_B8 pin
+int P1_B10_lastButtonState = HIGH;       // the previous reading from the P1_B8 pin
 int P1_START_buttonState;               // the current reading from the P1_START pin   
 int P1_START_lastButtonState = HIGH;    // the previous reading from the P1_START pin
 int P1_SELECT_buttonState;               // the current reading from the P1_SELECT pin
@@ -99,6 +105,10 @@ unsigned long lastDebounceTime_P1_B7 = 0;     // the last time the P1_B7 pin was
 unsigned long debounceDelay_P1_B7 = 30;       // the debounce time;
 unsigned long lastDebounceTime_P1_B8 = 0;     // the last time the P1_B8 pin was toggled
 unsigned long debounceDelay_P1_B8 = 30;       // the debounce time;
+unsigned long lastDebounceTime_P1_B9 = 0;     // the last time the P1_B8 pin was toggled
+unsigned long debounceDelay_P1_B9 = 30;       // the debounce time;
+unsigned long lastDebounceTime_P1_B10 = 0;     // the last time the P1_B8 pin was toggled
+unsigned long debounceDelay_P1_B10 = 30;       // the debounce time;
 unsigned long lastDebounceTime_P1_START = 0;  // the last time the P1_START pin was toggled
 unsigned long debounceDelay_P1_START = 30;    // the debounce time;
 unsigned long lastDebounceTime_P1_SELECT = 0; // the last time the P1_SELECT pin was toggled
@@ -121,6 +131,8 @@ void setup() {
   pinMode (P1_B6, INPUT_PULLUP);
   pinMode (P1_B7, INPUT_PULLUP);
   pinMode (P1_B8, INPUT_PULLUP);
+  pinMode (P1_B9, INPUT_PULLUP);
+  pinMode (P1_B10, INPUT_PULLUP);
   pinMode (P1_START, INPUT_PULLUP);
   pinMode (P1_SELECT, INPUT_PULLUP);
 
@@ -139,6 +151,8 @@ void loop() {
     checkP1_B6();
     checkP1_B7();
     checkP1_B8();
+    checkP1_B9();
+    checkP1_B10();
     
     // int P1_UP_reading = digitalRead(P1_UP);
     // int P1_DOWN_reading = digitalRead(P1_DOWN);
@@ -407,4 +421,62 @@ void checkP1_B8() {
             }
           }
         P1_B8_lastButtonState = P1_B8_reading;  
+        }
+
+void checkP1_B9() {
+      int P1_B9_reading = digitalRead(P1_B9);
+      // If the switch changed, due to noise or pressing:
+          if (P1_B9_reading != P1_B9_lastButtonState) {
+          // reset the debouncing timer
+          lastDebounceTime_P1_B9 = millis();
+          }
+
+          if ((millis() - lastDebounceTime_P1_B9 ) > debounceDelay_P1_B9) {
+          // whatever the reading is at, it's been there for longer
+          // than the debounce delay, so take it as the actual current state:
+          // if the button state has changed:
+          if (P1_B9_reading != P1_B9_buttonState) {
+            P1_B9_buttonState = P1_B9_reading;
+
+          // only toggle if the new button state is LOW
+          if (P1_B9_buttonState == LOW) {
+          //  Serial.write(keyP1_B8);  // Send keypress to Serial
+          Keyboard.press(keyP1_B9);
+
+              }
+          if (P1_B9_buttonState == HIGH) {
+          Keyboard.release(keyP1_B9);
+              }
+            }
+          }
+        P1_B9_lastButtonState = P1_B9_reading;  
+        }
+
+void checkP1_B10() {
+      int P1_B10_reading = digitalRead(P1_B10);
+      // If the switch changed, due to noise or pressing:
+          if (P1_B10_reading != P1_B10_lastButtonState) {
+          // reset the debouncing timer
+          lastDebounceTime_P1_B10 = millis();
+          }
+
+          if ((millis() - lastDebounceTime_P1_B10 ) > debounceDelay_P1_B10) {
+          // whatever the reading is at, it's been there for longer
+          // than the debounce delay, so take it as the actual current state:
+          // if the button state has changed:
+          if (P1_B10_reading != P1_B10_buttonState) {
+            P1_B10_buttonState = P1_B10_reading;
+
+          // only toggle if the new button state is LOW
+          if (P1_B10_buttonState == LOW) {
+          //  Serial.write(keyP1_B8);  // Send keypress to Serial
+          Keyboard.press(keyP1_B10);
+
+              }
+          if (P1_B10_buttonState == HIGH) {
+          Keyboard.release(keyP1_B10);
+              }
+            }
+          }
+        P1_B10_lastButtonState = P1_B10_reading;  
         }
