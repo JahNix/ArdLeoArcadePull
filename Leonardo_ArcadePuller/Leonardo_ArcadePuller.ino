@@ -52,7 +52,7 @@ int P1_RIGHT_buttonState;               // the current reading from the P1_RIGHT
 int P1_RIGHT_lastButtonState = HIGH;    // the previous reading from the P1_RIGHT pin
 int P1_B1_buttonState;                  // the current reading from the P1_B1 pin
 int P1_B1_lastButtonState = HIGH;       // the previous reading from the P1_B1 pin
-int P1_B2_buttonState;                  // the current reading from the P1_B2 pin
+int P1_B2_buttonState;                  // the current reading from the P1_B2 pin     
 int P1_B2_lastButtonState = HIGH;       // the previous reading from the P1_B2 pin
 int P1_B3_buttonState;                  // the current reading from the P1_B3 pin
 int P1_B3_lastButtonState = HIGH;       // the previous reading from the P1_B3 pin    
@@ -132,13 +132,13 @@ void loop() {
 
     checkCOIN_IN();
     checkP1_B1();
-    checkP1_B2();
-    // checkP1_B3();
-    // checkP1_B4();    
-    // checkP1_B5();
-    // checkP1_B6();
-    // checkP1_B7();
-    // checkP1_B8();
+    checkP1_B2();  
+    checkP1_B3();
+    checkP1_B4();    
+    checkP1_B5();    
+    checkP1_B6();
+    checkP1_B7();
+    checkP1_B8();
     
     // int P1_UP_reading = digitalRead(P1_UP);
     // int P1_DOWN_reading = digitalRead(P1_DOWN);
@@ -232,7 +232,7 @@ void checkP1_B2() {
               }
             }
           }
-        P1_B1_lastButtonState = P1_B2_reading;  
+        P1_B2_lastButtonState = P1_B2_reading;  
         }
 
 void checkP1_B3() {
